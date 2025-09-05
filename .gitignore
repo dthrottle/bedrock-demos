@@ -1,0 +1,71 @@
+# Core Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+.env/
+.env.*
+Pipfile.lock
+poetry.lock
+
+# Environment & secrets
+*.env
+!.env.example
+.env.local
+.envrc
+
+# Byte-compiled / optimized / DLL files
+*.so
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+wheels/
+
+# Logs & runtime
+*.log
+*.pid
+*.pid.lock
+
+# Testing
+.cache/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# FastAPI / Uvicorn reload artifacts
+.reload*
+
+# Node (if any future frontend additions)
+node_modules/
+
+# AWS / credentials caches
+.aws-sam/
+
+# Temporary
+.tmp/
+*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local overrides
+local_settings.py

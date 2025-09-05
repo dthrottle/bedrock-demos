@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Amazon Comprehend Demo</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Amazon Comprehend Demo</h1>
+    <form method="post" action="/analyze">
+      <label for="text">Enter text (max {{ limit }} chars):</label>
+      <textarea id="text" name="text" maxlength="{{ limit }}" oninput="updateCount()" required>{{ text }}</textarea>
+      <div class="char-count"><span id="count">{{ text|length }}</span>/{{ limit }}</div>
+      <button type="submit">Analyze</button>
+    </form>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    {% if result %}
+      <div class="results">
+        <h2>Results</h2>
+        <section>
+          <h3>Sentiment</h3>
+          {% if result.sentiment.overall %}
+            <p><strong>Overall:</strong> {{ result.sentiment.overall }}</p>
+            <ul>
+              {% for k,v in result.sentiment.scores.items() %}
+              <li>{{ k }}: {{ '%.4f'|format(v) }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}<p>No sentiment data.</p>{% endif %}
+        </section>
+        <section>
+          <h3>Entities ({{ result.entities|length }})</h3>
+          {% if result.entities %}
+          <table><thead><tr><th>Text</th><th>Type</th><th>Score</th></tr></thead>
+            <tbody>
+            {% for e in result.entities %}
+              <tr><td>{{ e.text }}</td><td>{{ e.type }}</td><td>{{ e.score }}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}<p>No entities.</p>{% endif %}
+        </section>
+        <section>
+          <h3>Key Phrases ({{ result.key_phrases|length }})</h3>
+          {% if result.key_phrases %}
+            <ul class="chips">
+              {% for kp in result.key_phrases %}
+              <li>{{ kp }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}<p>No key phrases.</p>{% endif %}
+        </section>
+        <section>
+          <h3>Languages</h3>
+          {% if result.languages %}
+            <ul>
+              {% for l in result.languages %}<li>{{ l.lang }} ({{ l.score }})</li>{% endfor %}
+            </ul>
+          {% else %}<p>No languages detected.</p>{% endif %}
+        </section>
+        <section>
+          <h3>PII Entities ({{ result.pii|length }})</h3>
+          {% if result.pii %}
+          <table><thead><tr><th>Type</th><th>Score</th><th>Span</th></tr></thead>
+            <tbody>
+            {% for e in result.pii %}
+              <tr><td>{{ e.type }}</td><td>{{ e.score }}</td><td>{{ e.begin }}-{{ e.end }}</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% else %}<p>No PII detected.</p>{% endif %}
+        </section>
+        <section>
+          <h3>Targeted Sentiment ({{ result.targeted|length }})</h3>
+          {% if result.targeted %}
+            <table><thead><tr><th>Text</th><th>Type</th><th>Sentiment</th><th>Confidence</th></tr></thead>
+              <tbody>
+              {% for t in result.targeted %}
+                <tr><td>{{ t.text }}</td><td>{{ t.type }}</td><td>{{ t.sentiment }}</td><td>{{ t.confidence }}</td></tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          {% else %}<p>No targeted sentiment.</p>{% endif %}
+        </section>
+        <section>
+          <h3>Derived Categories</h3>
+          <div class="flex-row">
+            <div>
+              <h4>Entity Type Counts</h4>
+              {% if result.entity_type_counts %}
+                <ul>
+                {% for k,v in result.entity_type_counts.items() %}<li>{{ k }}: {{ v }}</li>{% endfor %}
+                </ul>
+              {% else %}<p>None</p>{% endif %}
+            </div>
+            <div>
+              <h4>Key Phrase Length</h4>
+              {% if result.key_phrase_length_buckets %}
+                <ul>
+                {% for k,v in result.key_phrase_length_buckets.items() %}<li>{{ k }}: {{ v }}</li>{% endfor %}
+                </ul>
+              {% else %}<p>None</p>{% endif %}
+            </div>
+            <div>
+              <h4>Top POS Tags</h4>
+              {% if result.pos_top %}
+                <ul>
+                {% for k,v in result.pos_top %}<li>{{ k }}: {{ v }}</li>{% endfor %}
+                </ul>
+              {% else %}<p>None</p>{% endif %}
+            </div>
+          </div>
+        </section>
+      </div>
+    {% endif %}
+  </div>
+  <script>
+    function updateCount(){
+      const ta = document.getElementById('text');
+      document.getElementById('count').innerText = ta.value.length;
+    }
+  </script>
+</body>
+</html>

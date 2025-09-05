@@ -1,0 +1,18 @@
+body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; margin:0; padding:0; background:#f5f7fa; color:#222; }
+.container { max-width: 1100px; margin: 1.5rem auto 3rem; background:#fff; padding:1.5rem 2rem; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,.08); }
+h1 { margin-top:0; }
+form { display:flex; flex-direction:column; gap:.75rem; }
+textarea { width:100%; min-height:160px; resize:vertical; padding:.75rem; font-size:1rem; line-height:1.4; border:1px solid #ccc; border-radius:6px; }
+button { background:#2563eb; color:#fff; border:none; padding:.7rem 1.25rem; font-size:1rem; border-radius:6px; cursor:pointer; align-self:flex-start; }
+button:hover { background:#1d4ed8; }
+.char-count { font-size:.85rem; color:#555; margin-top:-.5rem; }
+.error { background:#fee2e2; padding:.6rem .8rem; border:1px solid #fca5a5; color:#991b1b; border-radius:6px; margin-top:1rem; }
+.results { margin-top:2rem; }
+section { margin-bottom:1.75rem; }
+table { border-collapse:collapse; width:100%; font-size:.9rem; }
+th, td { border:1px solid #e5e7eb; padding:.4rem .55rem; text-align:left; }
+th { background:#f1f5f9; }
+ul.chips { list-style:none; padding:0; display:flex; flex-wrap:wrap; gap:.5rem; }
+ul.chips li { background:#eef2ff; color:#1e3a8a; padding:.35rem .6rem; border-radius:20px; font-size:.8rem; }
+.flex-row { display:flex; gap:2rem; flex-wrap:wrap; }
+.flex-row > div { background:#f8fafc; padding:.75rem 1rem; border:1px solid #e5e7eb; border-radius:8px; flex:1 1 240px; }
